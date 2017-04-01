@@ -1,0 +1,24 @@
+repositories{
+    jcenter()
+    flatDir{
+        dirs 'libs'
+     }
+}
+
+dependencies {
+    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.android.support:recyclerview-v7:23.1.1'
+    compile 'com.android.support:design:23.1.1'
+    compile 'com.google.android.gms:play-services-ads:8.4.0'
+    compile 'com.google.android.gms:play-services-base:8.4.0'
+    compile 'com.android.support:customtabs:23.1.1'
+    compile 'org.slf4j:slf4j-android:1.7.10'
+    compile 'com.widespace:widespace-sdk-4.8.2@aar'
+}
+
+android {
+    packagingOptions {
+      exclude 'META-INF/NOTICE'
+      exclude 'META-INF/LICENSE'
+    }
+}

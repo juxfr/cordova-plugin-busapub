@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <title></title>
+        <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
+        <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+        <!-- ionic/angularjs js -->
+        <script src="lib/ionic/js/ionic.bundle.js"></script>
+        <!-- cordova script (this will be a 404 during development) -->
+        <script src="cordova.js"></script>
+        <!-- your app's js -->
+        <style type="text/css">
+            .bigbutton {
+                -moz-box-shadow: 0px 2px 4px 1px #c2c2c2;
+                -webkit-box-shadow: 0px 2px 4px 1px #c2c2c2;
+                box-shadow: 0px 2px 4px 1px #c2c2c2;
+                background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #ffffff), color-stop(1, #e8e8e8));
+                background:-moz-linear-gradient(center top, #ffffff 5%, #e8e8e8 100%);
+                filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#e8e8e8');
+                background-color:#ffffff;
+                -moz-border-radius:4px;
+                -webkit-border-radius:4px;
+                padding:10px 30px;
+                margin-top:5px;
+                margin-bottom:5px;
+                border-radius:4px;
+                border:1px solid #ebebeb;
+                display:block;
+                color:black;
+                text-decoration:none;
+                font-weight:bold;
+                text-transform:uppercase;
+                margin:0 auto;
+            }
+            .bigbutton:hover {
+                background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #e8e8e8), color-stop(1, #ffffff));
+                background:-moz-linear-gradient(center top, #e8e8e8 5%, #ffffff 100%);
+                filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#e8e8e8', endColorstr='#ffffff');
+                background-color:#e8e8e8;
+                color:#333;
+            }
+            .bigbutton:active {
+                position:relative;
+                top:1px;
+            }
+            .bigbutton a {
+                font:bold 1.5em/2em Peugeot, Arial, "Sans Serif";
+                font-family:Arial, Peugeot;
+                color:black;
+                text-decoration:none;
+            }
+        </style>
+    </head>
+    
+    <body onload="onLoad()" style="background-color:#aaaaaa;">
+        <script>
+            function onLoad() {
+
+                document.addEventListener('deviceready', adSpaceSettings, false);
+
+
+            }
+
+            function showInterstitialAd() {
+
+                //Method to use in order to run an interstitial ad 
+
+                window.plugins.widespace.showInterstitialAd();
+
+
+            }
+
+
+            function adSpaceSettings() {
+
+
+                if (window.plugins && window.plugins.widespace) {
+                    var sidSettings = {
+
+                        //add you specific SID for android and iOS
+                        android: {
+                            interstitialSid: 'e31e5044-7282-4416-862d-230f7260b497',
+                            bannerSid: 'bc090549-d9bb-4a34-be19-69d21c6038d5'
+                        },
+
+                        ios: {
+                            interstitialSid: '8fe91545-3771-43fd-97ab-63f1a642e38f',
+                            bannerSid: '64c174ed-9ca1-4390-b456-8bbcd2c89757'
+                        }
+
+                    };
+                    var widespaceSid = "";
+                    if (/(android)/i.test(navigator.userAgent)) {
+                        widespaceSid = sidSettings.android;
+
+                    } else if (/(iphone|ipad)/i.test(navigator.userAgent)) {
+                        widespaceSid = sidSettings.ios;
+                    }
+
+
+
+                    window.plugins.widespace.setWidespaceSettings({
+
+                        theBannerSid: widespaceSid.bannerSid,
+                        theInterstitialSid: widespaceSid.interstitialSid,
+                        displayBannerTop: false //Choose betweend true/false to display banner at top or bottom of the view. 
+                    });
+
+
+                }
+
+                showInterstitialAd();
+                widespaceAdEvents();
+            }
+
+
+             //Widespace different events to listen for and act on.
+
+            function widespaceAdEvents() {
+
+                //Ad status Listeners
+                document.addEventListener('willLoadAd', function () {
+                    console.log("willLoadAd");
+                });
+                document.addEventListener('didLoadAd', function () {
+                    console.log("didLoadAd");
+                });
+                document.addEventListener('didReceiveNoAd', function () {
+                    console.log("didReceiveNoAd");
+                });
+
+
+                //Ad Animation listeners
+                document.addEventListener('willAnimateIn', function () {
+                    console.log("willAnimateIn");
+                });
+                document.addEventListener('didAnimateIn', function () {
+                    console.log("didAnimateIn");
+                });
+                document.addEventListener('willAnimateOut', function () {
+                    console.log("willAnimateOut");
+                });
+                document.addEventListener('didAnimateOut', function () {
+                    console.log("didAnimateOut");
+                });
+                document.addEventListener('willCloseAd', function () {
+                    console.log("willCloseAd");
+                });
+                document.addEventListener('didCloseAd', function () {
+                    console.log("didCloseAd");
+                });
+
+                //Media Listeners 
+                document.addEventListener('willStartMedia', function () {
+                    console.log("willStartMedia");
+                });
+                document.addEventListener('didStopMedia', function () {
+                    console.log("didStopMedia");
+                });
+                document.addEventListener('didCompleteMedia', function () {
+                    console.log("didCompleteMedia");
+                });
+
+
+
+            }
+
+
+            function showBannerAd() {
+
+
+                //Method to use in order to run the Banner ads. 
+
+                window.plugins.widespace.showBannerAd();
+
+            }
+
+            function closeAd() {
+
+                //Method to use in order to remove the ad space from the view.  
+
+                window.plugins.widespace.closeAd();
+
+            }
+        </script>
+        <header style="width:100%; height:100%; margin:0; padding:0; border:0px solid red; text-align:center; vertical-align:middle; margin-top:20%; font-size:22px; font-weight:bold; color:#fff;">Widespace Cordova Demo app</header>
+        <div style="width:100%; height:100%; text-align:center; vertical-align:middle; margin-top:20%;">
+            <p>
+                <button style="margin-bottom:50px;" class="bigbutton" onclick="closeAd();">Remove the ad from view</button>
+            </p>
+            <p>
+                <button class="bigbutton" onclick="showBannerAd();">Display Banner Ad</button>
+            </p>
+            <p>
+                <button class="bigbutton" onclick="showInterstitialAd();">Display Interstitial Ad</button>
+            </p>
+        </div>
+    </body>
+
+</html>
